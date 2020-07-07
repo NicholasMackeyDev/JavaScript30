@@ -3,14 +3,12 @@
 <head>
   <meta charset="UTF-8">
   <title>JS | Drum Kit</title>
+  <link rel="shortcut icon" href="">
   <link rel="stylesheet" href="style.css">
-  <link rel="apple-touch-icon" sizes="180x180" href="/01 - JavaScript Drum Kit/">
-  <link rel="icon" type="image/png" sizes="32x32" href="01 - JavaScript Drum Kit/favicon-32x32.png">
-  <link rel="icon" type="image/png" sizes="16x16" href="01 - JavaScript Drum Kit/favicon-16x16.png">
-  <link rel="manifest" href="01 - JavaScript Drum Kit/site.webmanifest">
 </head>
 <body>
-  
+
+
   <div class="keys">
     <div data-key="65" class="key">
       <kbd>A</kbd>
@@ -62,25 +60,23 @@
 
 <script>
   function removeTransition(e) {
-  if(e.propertyName !== 'transform') return; // skip if it's not a transform
-  this.classList.remove('playing');
+    if (e.propertyName !== 'transform') return;
+    e.target.classList.remove('playing');
   }
-  
+
   function playSound(e) {
     const audio = document.querySelector(`audio[data-key="${e.keyCode}"]`);
-    const key = document.querySelector(`.key[data-key="${e.keyCode}"]`);
-    if (!audio) return; // stops the function from running all together.
+    const key = document.querySelector(`div[data-key="${e.keyCode}"]`);
+    if (!audio) return;
 
     key.classList.add('playing');
-    audio.currentTime =0; // rewinds to the start.
+    audio.currentTime = 0;
     audio.play();
   }
 
   const keys = Array.from(document.querySelectorAll('.key'));
   keys.forEach(key => key.addEventListener('transitionend', removeTransition));
   window.addEventListener('keydown', playSound);
-
-  
 </script>
 
 
